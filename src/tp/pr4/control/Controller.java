@@ -4,7 +4,7 @@ import tp.pr4.logic.*;
 
 import java.util.Scanner;
 
-public class Controller {
+public abstract class Controller {
 
 	private Game game;
 	private Scanner in;
@@ -14,7 +14,7 @@ public class Controller {
 	private GameTypeFactory factory;
 	private int numPlayer;
 	private String[] tokens;
-	
+	/*
 	public Controller(GameTypeFactory factory, Game g, java.util.Scanner in) {
 		this.game = g;
 		this.in = in;
@@ -25,8 +25,18 @@ public class Controller {
 		this.numPlayer = 0;
 		this.tokens = null;
 	}
-
-	public void run() {
+*/
+	public Controller() {}
+	
+	/**
+	 * The main method of the controller.
+	 * It is assume to execute the game 
+	 * until it finishes 
+	 * (depending on the kind of the controller)
+	 */
+	abstract void run();
+	
+	/*public void run() {
 		Instruction inst = Instruction.ERROR;
 		String currentTurn;
 
@@ -34,8 +44,7 @@ public class Controller {
 
 		while (!this.game.isFinished() && !(inst.equals(Instruction.EXIT))) {
 			System.out.println(this.game.getBoard());
-			currentTurn = this.game.getTurn().toString();
-			currentTurn = this.convertTurnFirstUpper(currentTurn);
+			currentTurn = this.game.getTurn().toString();			
 			System.out.println(currentTurn + " to move");
 		
 			
@@ -124,28 +133,9 @@ public class Controller {
 				}
 			
 		}
-		if (this.game.isFinished()) {
-			System.out.println(this.game.getBoard());
-			if (this.game.isDraw()) {
-				System.out.println("Game over. Game ended in a draw");
-			} else {
-				System.out.println("Game over. "
-						+ this.convertTurnFirstUpper(this.game.getWinner()
-								.toString()) + " wins");
-			}
-		}
+		
 		System.out.println("Closing the game... ");
-	}
-
-	private String convertTurnFirstUpper(String currentTurn) {
-		String out;
-		if (currentTurn.equals("WHITE")) {
-			out = "White";
-		} else {
-			out = "Black";
-		}
-		return out;
-	}
+	}	*/
 
 	private Instruction readInstruction(java.util.Scanner in) {
 		//We initialize to move for the random player

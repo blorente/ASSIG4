@@ -2,7 +2,7 @@ package tp.pr4.logic;
 
 import tp.pr4.Util;
 
-public class Board {
+public class Board implements ReadOnlyBoard {
 
 	public static final int MINWIDTH = 1;
 	public static final int MINHEIGHT = 1;

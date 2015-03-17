@@ -1,8 +1,12 @@
 package tp.pr4.logic;
 
-public class Game {
+import java.util.ArrayList;
+import java.util.List;
+
+public class Game implements Observable<GameObserver> {
 
 	public static final int WINCON = 4;
+	public static final int MAX_OBSERVERS = 10;
 
 	// Class Attributes
 	private Board board;
@@ -13,6 +17,9 @@ public class Game {
 	private boolean draw;
 	private UndoStack undoStack;
 	private GameRules rules;
+	
+	//Observers
+	private List<GameObserver> observers;
 
 	// Constructs a new game.
 	public Game(GameRules rules) {
@@ -24,6 +31,7 @@ public class Game {
 		this.draw = false;
 		this.undoStack = new UndoStack();
 		this.rules = rules;
+		this.observers = new ArrayList<GameObserver>();
 	}
 
 	// Restarts the current game. This operation cannot be undone.
@@ -35,6 +43,8 @@ public class Game {
 		this.draw = false;
 		this.undoStack.clear();
 		this.rules = rules;
+		//TODO: Do we have to reset the observers?
+		//this.observers = new GameObserver[MAX_OBSERVERS];
 	}
 
 	// Executes the move indicated by the column number provided as argument.
@@ -77,12 +87,20 @@ public class Game {
             mov.undo(this.board);
             this.undoStack.pop();
             this.turn = this.rules.nextTurn(this.turn, this.board);
-            success = true;
+            success = true;           
         } else {
             success = false;
-        }
+        } 
+        //Notify the observers
+        this.onUndoNotify(this.turn, success);
         return success;
     }
+	private void onUndoNotify(Counter turn, boolean success) {			
+		for (GameObserver o : this.observers) {
+			o.onUndo(this.board, turn, success);
+		}
+	}
+	
 
 	// Returns the color of the player whose turn it is.
 	public Counter getTurn() {
@@ -105,7 +123,7 @@ public class Game {
 	}
 
 	// Accessor method for the board.
-	public Board getBoard() {
+	public ReadOnlyBoard getBoard() {
 		return this.board;
 	}
 
@@ -115,6 +133,16 @@ public class Game {
 
 	public boolean isDraw() {
 		return draw;
+	}
+
+	@Override
+	public void addObserver(GameObserver o) {
+		this.observers.add(o);
+	}
+
+	@Override
+	public void removeObserver(GameObserver o) {
+		this.observers.remove(o);
 	}
 	
 	

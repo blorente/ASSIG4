@@ -3,6 +3,7 @@ package tp.pr4;
 import tp.pr4.logic.Board;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.Game;
+import tp.pr4.logic.ReadOnlyBoard;
 
 public class Util {
 
@@ -21,7 +22,7 @@ public class Util {
      *            : The column to check for the first empty space
      * @return
      */
-    public static int firstEmptyPosition(Board board, int col) {
+    public static int firstEmptyPosition(ReadOnlyBoard board, int col) {
         int row = Board.MINHEIGHT;
         // Error-checking
         if (!Util.isColumnValid(board, col)) {
@@ -115,7 +116,7 @@ public class Util {
     }
 
 	// Check whether the column is inside the boundaries of the board
-	public static boolean isColumnValid(Board board, int column) {
+	public static boolean isColumnValid(ReadOnlyBoard board, int column) {
 		boolean valid = true;
 		if ((column > board.getWidth()) || (column < Board.MINWIDTH)) {
 			valid = false;
@@ -124,7 +125,7 @@ public class Util {
 	}
 
 	// Check whether the row is inside the boundaries of the board
-	public static boolean isRowValid(Board board, int row) {
+	public static boolean isRowValid(ReadOnlyBoard board, int row) {
 		boolean valid = true;
 		if ((row < Board.MINHEIGHT) || (row > board.getHeight())) {
 			valid = false;

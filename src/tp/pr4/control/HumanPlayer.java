@@ -19,6 +19,6 @@ public abstract class HumanPlayer implements Player{
 		return answer;
 	}
 	
-	public abstract Move getMove(Board board, Counter colour);
+	public abstract Move getMove(ReadOnlyBoard board, Counter colour);
 	
 }

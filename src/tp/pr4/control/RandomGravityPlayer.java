@@ -5,7 +5,7 @@ import tp.pr4.logic.*;
 
 public class RandomGravityPlayer implements Player {
 
-	public Move getMove(Board board, Counter colour) {
+	public Move getMove(ReadOnlyBoard board, Counter colour) {
 		Random rand = new Random();
 		int col, row;
 		do {

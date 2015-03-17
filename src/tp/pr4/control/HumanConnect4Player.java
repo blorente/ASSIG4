@@ -10,7 +10,7 @@ public class HumanConnect4Player extends HumanPlayer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Move getMove(Board board, Counter colour) {
+	public Move getMove(ReadOnlyBoard board, Counter colour) {
 		Move newMove = new Connect4Move(readColumn("column"), colour);
 		return newMove;
 	}

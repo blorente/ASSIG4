@@ -8,7 +8,7 @@ import tp.pr4.Util;
 
 public class RandomConnect4Player implements Player {
 
-	public Move getMove(Board board, Counter colour) {
+	public Move getMove(ReadOnlyBoard board, Counter colour) {
 		Random rand = new Random();
 		int col;
 		do {

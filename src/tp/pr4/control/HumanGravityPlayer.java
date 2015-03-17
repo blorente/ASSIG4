@@ -11,9 +11,11 @@ public class HumanGravityPlayer extends HumanPlayer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Move getMove(Board board, Counter colour) {
+	public Move getMove(ReadOnlyBoard board, Counter colour) {
 		Move newMove = new GravityMove(readColumn("column"),readColumn("row"), colour );
 		return newMove;
 	}
+
+	
 
 }

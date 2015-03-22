@@ -34,7 +34,7 @@ public abstract class Controller {
 	 * until it finishes 
 	 * (depending on the kind of the controller)
 	 */
-	abstract void run();
+	abstract public void run();
 	
 	/*public void run() {
 		Instruction inst = Instruction.ERROR;
@@ -137,7 +137,7 @@ public abstract class Controller {
 		System.out.println("Closing the game... ");
 	}	*/
 
-	private Instruction readInstruction(java.util.Scanner in) {
+	private Instruction readInstruction(Scanner in) {
 		//We initialize to move for the random player
 		Instruction inst = Instruction.MOVE;
 		String instString = "";

@@ -158,6 +158,7 @@ public class Game implements Observable<GameObserver> {
 	@Override
 	public void addObserver(GameObserver o) {
 		this.observers.add(o);
+        o.onAttachToObserved(this.board, this.turn);
 	}
 
 	@Override
@@ -165,5 +166,7 @@ public class Game implements Observable<GameObserver> {
 		this.observers.remove(o);
 	}
 	
-	
+	public String toString() {
+        return this.board.toString();
+    }
 }

@@ -32,5 +32,5 @@ public interface ReadOnlyBoard {
 	 * 			State of the position on the board. 
 	 * 			If the position is invalid, returns Counter.EMPTY
 	 */
-	Counter getPosition(int x,       int y);
+	Counter getPosition(int x, int y);
 }

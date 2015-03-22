@@ -3,7 +3,7 @@ package tp.pr4.logic;
 import java.io.Serializable;
 import java.lang.String;
 
-public class InvalidMove extends java.lang.Exception implements Serializable {
+public class InvalidMove extends Exception implements Serializable {
 	/**
 	 * 
 	 */

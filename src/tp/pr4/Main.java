@@ -7,7 +7,7 @@ import tp.pr4.control.*;
 
 public class Main {
 
-	public static void main(java.lang.String[] args) {
+	public static void main(String[] args) {
         //Interpret command-line alrguments
         ArgumentInterpreter interpreter = new ArgumentInterpreter(args);
 
@@ -82,7 +82,7 @@ public class Main {
 
             GameTypeFactory factory = null;
             Game game = null;
-            Scanner in = new java.util.Scanner(System.in);
+            Scanner in = new Scanner(System.in);
 
             switch (type) {
                 case GRAVITY:
@@ -101,7 +101,7 @@ public class Main {
 				break;
             }
 
-            Controller controller = new Controller(factory, game, in);
+            Controller controller = new ConsoleController(factory, game);
 
             controller.run();
         }

@@ -17,13 +17,11 @@ public class ConsoleView implements GameObserver {
 
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
-		// TODO Auto-generated method stub
 		System.out.println("Game restarted.");
 	}
 
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		// TODO Auto-generated method stub
 		System.out.println(board);
 		if (winner == Counter.EMPTY) {
 			System.out.println("Game over. Game ended in a draw");
@@ -37,7 +35,6 @@ public class ConsoleView implements GameObserver {
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player,
 			Counter nextPlayer) {
-		// TODO Auto-generated method stub
 		System.out.println(board);
 		System.out.println(convertTurnFirstUpper(nextPlayer.toString())
 				+ " to move");
@@ -45,14 +42,12 @@ public class ConsoleView implements GameObserver {
 
 	@Override
 	public void onMoveError(String msg) {
-		// TODO Auto-generated method stub
 		System.err.println(msg);
 	}
 
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer,
 			boolean undoPossible) {
-		// TODO Auto-generated method stub
 		System.out.println(board);
 		System.out.println(convertTurnFirstUpper(nextPlayer.toString())
 				+ " to move");
@@ -64,7 +59,14 @@ public class ConsoleView implements GameObserver {
 		System.err.println("Nothing to undo.");
 	}
 
-	private String convertTurnFirstUpper(String currentTurn) {
+    @Override
+    public void onAttachToObserved(ReadOnlyBoard board, Counter turn) {
+        System.out.println(board);
+        System.out.println(convertTurnFirstUpper(turn.toString())
+                + " to move");
+    }
+
+    private String convertTurnFirstUpper(String currentTurn) {
 		String out;
 		if (currentTurn.equals("WHITE")) {
 			out = "White";

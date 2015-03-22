@@ -27,7 +27,7 @@ public class ConsoleController extends Controller {
 		// TODO Auto-generated constructor stub
 		this.game = g;
 		this.factory = factory;
-		this.in = new java.util.Scanner(System.in);
+		this.in = new Scanner(System.in);
 		this.rules = factory.createRules();
 		this.players = new Player[2];
 		this.initializePlayers();
@@ -37,12 +37,12 @@ public class ConsoleController extends Controller {
 	}
 
 	@Override
-	void run() {
+	public void run() {
 		Instruction inst = Instruction.ERROR;
 		boolean correctUndo;
 		
 		while (!this.game.isFinished() && !(inst.equals(Instruction.EXIT))) {
-			inst = readInstruction(this.in);
+            inst = readInstruction(this.in);
 			switch (inst) {
 			case MOVE:
 				Move mov = players[this.numPlayer].getMove(
@@ -129,7 +129,7 @@ public class ConsoleController extends Controller {
 
 	}
 
-	private Instruction readInstruction(java.util.Scanner in) {
+	private Instruction readInstruction(Scanner in) {
 		// We initialize to move for the random player
 		Instruction inst = Instruction.MOVE;
 		String instString = "";

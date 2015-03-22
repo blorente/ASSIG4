@@ -2,7 +2,7 @@ package tp.pr4.logic;
 
 import java.io.Serializable;
 
-public class UndoException extends java.lang.Exception implements Serializable {
+public class UndoException extends Exception implements Serializable {
 
 	/**
 	 * 

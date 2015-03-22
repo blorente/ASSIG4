@@ -8,7 +8,6 @@ import tp.pr4.logic.ReadOnlyBoard;
 
 public class ConsoleView implements GameObserver {
 
-	private Observable<GameObserver> observer;
 	private ConsoleController controller;
 
 	public ConsoleView(Observable<GameObserver> g, ConsoleController c) {

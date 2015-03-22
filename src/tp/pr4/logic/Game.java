@@ -50,15 +50,23 @@ public class Game implements Observable<GameObserver> {
 	// Executes the move indicated by the column number provided as argument.
 	public void executeMove(Move move) throws InvalidMove {
 		// Check whether column is valid
-		//TODO: This can be really wrong
 		if (this.turn != move.getPlayer()) {
-			throw new InvalidMove("Invalid move: is not " + move.getPlayer() +"'s turn");
+            //Uncomment in case we need an exception
+			//throw new InvalidMove("Invalid move: is not " + move.getPlayer() +"'s turn");
+
+            //Notify observers
+            for (GameObserver o : this.observers) {
+                o.onMoveError("Invalid move: is not " + move.getPlayer() +"'s turn");
+            }
 		}
 		if (this.draw) {
 			throw new InvalidMove("is a draw");
 		}
 		if (!this.isFinished())  {
 			move.executeMove(this.board);
+            for (GameObserver o : this.observers) {
+                o.moveExecFinished(this.board, this.turn, this.rules.nextTurn(this.turn, this.board));
+            }
 			// A complete and correct movement is pushed
 			this.undoStack.push(move);
 			// Update the winner
@@ -70,12 +78,21 @@ public class Game implements Observable<GameObserver> {
 				this.finished = true;
 			} else if (this.winner != Counter.EMPTY) {
 				this.finished = true;
+                //Notify game over
+                for (GameObserver o : this.observers) {
+                    o.onGameOver(this.board, this.winner);
+                }
 			}
 			if (this.winner == Counter.EMPTY && !this.finished) {
 				this.turn = this.rules.nextTurn(this.turn, this.board);
 			}
 		} else {
-            throw new InvalidMove("Invalid move: The game is already finished");
+            //throw new InvalidMove("Invalid move: The game is already finished");
+
+            //Notify observers
+            for (GameObserver o : this.observers) {
+                o.onMoveError("Invalid move: The game is already finished");
+            }
         }
 	}
 
@@ -87,19 +104,22 @@ public class Game implements Observable<GameObserver> {
             mov.undo(this.board);
             this.undoStack.pop();
             this.turn = this.rules.nextTurn(this.turn, this.board);
-            success = true;           
+            success = true;
+
         } else {
             success = false;
+            for (GameObserver o : this.observers) {
+                o.onUndoNotPossible();
+            }
         } 
         //Notify the observers
-        this.onUndoNotify(this.turn, success);
+        for (GameObserver o : this.observers) {
+            o.onUndo(this.board, turn, success);
+        }
+
         return success;
     }
-	private void onUndoNotify(Counter turn, boolean success) {			
-		for (GameObserver o : this.observers) {
-			o.onUndo(this.board, turn, success);
-		}
-	}
+
 	
 
 	// Returns the color of the player whose turn it is.

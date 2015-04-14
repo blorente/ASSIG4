@@ -40,6 +40,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 
 	private void initGUI(final Counter player) {
 		JPanel firstPanel = new JPanel(new BorderLayout());
+		
 		JButton undo = new JButton("Undo");
 		undo.setIcon(new ImageIcon("src/tp/pr4/icons/undo.png"));
 		undo.setPreferredSize(new Dimension (30, 30));

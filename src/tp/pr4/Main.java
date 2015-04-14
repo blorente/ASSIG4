@@ -8,10 +8,11 @@ import tp.pr4.control.*;
 public class Main {
 
 	public static void main(String[] args) {
-        //Interpret command-line alrguments
+        //Interpret command-line arguments
         ArgumentInterpreter interpreter = new ArgumentInterpreter(args);
 
         GameType type = GameType.CONNECT4;
+        UIType uitype = UIType.CONSOLE;
         int sizeX = 10;
         int sizeY = 10;
 
@@ -21,6 +22,7 @@ public class Main {
         boolean wrongCommand = false;
 
         while (index < args.length && !stop) {
+        	//Recognize help type
             if (args[index].equals("-g") || args[index].equals("--game")) {
                 type = interpreter.getGame();
                 index++;
@@ -36,25 +38,26 @@ public class Main {
                     try {                    	
                         sizeX = interpreter.getSize(index + 1);
                         index++;
-                    } catch (Exception e) {
-                        //TODO: Puede que tengas que outputear algo aqui                    	
+                    } catch (Exception e) {                                 	
                         stop = true;
                     }
                 } else if (args[index].equals("-y") || args[index].equals("--dimY")) {
                     try {
                     	sizeY = interpreter.getSize(index + 1);
                         index++;
-                    } catch (Exception e) {
-                        //TODO: Puede que tengas que outputear algo aqui                    	
+                    } catch (Exception e) {                                     	
                         stop = true;
                     }
                 }
-                index++;
-            } else if ((args[index].equals("-h") || args[index].equals("--help")) && index == 0) {
+                index++;                
+            } else if ((args[index].equals("-h") || args[index].equals("--help")) && index == 0) {//Recognize help
                 System.out.println(interpreter.getHelp());
                 helpAsked = true;
                 index++;
-            } else {
+            } else if ((args[index].equals("-u") || args[index].equals("--ui"))) { //Recognize ui type
+            	uitype = interpreter.getUI(index);
+            	index += 2;
+            } else { //There is an error
                 char ch = args[index].charAt(0);
                 if (ch == '-') {
                     System.err.println("Incorrect use: Unrecognized option: " + args[index] + "\n" +
@@ -66,7 +69,7 @@ public class Main {
                 stop = true;
             }
         }
-
+        //Check the correctness of the message and initialize the game if necessary.
         if (stop && type != GameType.ERROR && !wrongCommand) {
             String s = "";
             while (index < args.length - 1) {
@@ -79,11 +82,10 @@ public class Main {
 
             System.exit(1);
         } else if (type != GameType.ERROR && !helpAsked && !wrongCommand){
-
+        	//Everything went right
             GameTypeFactory factory = null;
             Game game = null;
-            Scanner in = new Scanner(System.in);
-
+            
             switch (type) {
                 case GRAVITY:
                     factory = new GravityFactory(sizeX, sizeY);
@@ -101,8 +103,14 @@ public class Main {
 				break;
             }
 
-            Controller controller = new ConsoleController(factory, game);
-
+            //Select the appropriate controller
+            Controller controller = null;
+            if(uitype == UIType.CONSOLE) {
+            	controller = new ConsoleController(factory, game);
+            } else if (uitype == UIType.WINDOW) {
+            	controller = new WindowController(factory, game);
+            }        
+            //Run the game
             controller.run();
         }
 	}

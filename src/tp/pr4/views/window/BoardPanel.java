@@ -68,10 +68,10 @@ public class BoardPanel extends JPanel implements GameObserver{
 		this.buttons = new JButton[board.getWidth()][board.getHeight()];
 		this.removeAll();
 		
-		for (int j = 1; j < board.getHeight(); j++) {
-			for (int i = 1; i < board.getWidth(); i++) {
-				this.buttons[j][i] = createButton(j, i, board.getPosition(i, j), player);
-				setButtonDisabled(j,i, board.getPosition(i, j));
+		for (int i = 0; i < board.getWidth(); i++) {
+			for (int j = 0; j < board.getHeight(); j++) {
+				this.buttons[i][j] = createButton(i, j,  player, board.getPosition(i + 1, j + 1));
+				setButtonDisabled(i,j, board.getPosition(i, j));
 				this.c.gridy = j;
 				this.c.gridx = i;
 				this.add(buttons[i][j], c);
@@ -85,8 +85,8 @@ public class BoardPanel extends JPanel implements GameObserver{
 		if (colour != Counter.EMPTY) {
 			this.buttons[i][j].setEnabled(false);
 		}
-
 	}
+	
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
 		this.active = false;
@@ -118,8 +118,7 @@ public class BoardPanel extends JPanel implements GameObserver{
 
 	@Override
 	public void onAttachToObserved(ReadOnlyBoard board, Counter turn) {
-		// TODO Auto-generated method stub
-		
+		this.UpdateView(turn, board);	
 	}
 
 	@Override

@@ -12,8 +12,6 @@ import tp.pr4.logic.Counter;
 
 public class WindowController extends Controller {
 	
-	
-	private Counter turn;
 	private Game game;
 	private GameTypeFactory factory;
 	private GameRules rules;
@@ -24,8 +22,8 @@ public class WindowController extends Controller {
 		this.game = game;
 		this.factory = factory;
 		this.rules = factory.createRules();
-		this.window = new MainWindow(game, this);
 		this.random = factory.createRandomPlayer();
+
 	}
 	
 	public void makeMove(int col, int row, Counter colour) { 
@@ -84,7 +82,8 @@ public class WindowController extends Controller {
 	}
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		System.out.print("Is here");
+		this.window = new MainWindow(game, this);	
 		
 	}
 

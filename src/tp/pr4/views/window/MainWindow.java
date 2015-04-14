@@ -2,15 +2,17 @@ package tp.pr4.views.window;
 
 
 import java.awt.BorderLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 import tp.pr4.control.WindowController;
 import tp.pr4.logic.Counter;
@@ -20,8 +22,15 @@ import tp.pr4.logic.ReadOnlyBoard;
 
 public class MainWindow extends JFrame implements GameObserver {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private WindowController controller;
 	private Observable<GameObserver> game;
+	private BoardPanel brdPanel;
+	private CtrlPanel ctrlPanel;
+	private JPanel quitPanel;
 	
 	public MainWindow(Observable<GameObserver> g, WindowController c) {	
 		super("Assignment 4");
@@ -35,14 +44,17 @@ public class MainWindow extends JFrame implements GameObserver {
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		this.setContentPane(mainPanel);
 		
-		JPanel boardPanel = new BoardPanel(this.controller, this.game);
-		JPanel ctrlPanel = new CtrlPanel(game, controller); 
-		JPanel quitPanel = createQuitPanel();
+		this.brdPanel = new BoardPanel(this.controller, this.game);//Nested Class
+		this.ctrlPanel = new CtrlPanel(game, controller); // Nested Class
+		this.quitPanel = createQuitPanel();
 		
-		mainPanel.add(boardPanel, BorderLayout.LINE_START);
-		mainPanel.add(ctrlPanel, BorderLayout.LINE_END);
-		mainPanel.add(quitPanel, BorderLayout.PAGE_END);
-
+		mainPanel.add(this.brdPanel, BorderLayout.LINE_START);
+		mainPanel.add(this.ctrlPanel, BorderLayout.LINE_END);
+		mainPanel.add(this.quitPanel, BorderLayout.PAGE_END);
+		
+		
+		//mainPanel.setVisible(true);
+		this.setVisible(true);
 	}
 	
 	private JPanel createQuitPanel() {
@@ -68,21 +80,18 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player,
 			Counter nextPlayer) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -94,7 +103,6 @@ public class MainWindow extends JFrame implements GameObserver {
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer,
 			boolean undoPossible) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -106,8 +114,8 @@ public class MainWindow extends JFrame implements GameObserver {
 
 	@Override
 	public void onAttachToObserved(ReadOnlyBoard board, Counter turn) {
-		// TODO Auto-generated method stub
 		
-	}
-
+	}	
+		
+	
 }

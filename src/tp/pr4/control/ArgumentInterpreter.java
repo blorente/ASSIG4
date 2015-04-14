@@ -2,9 +2,6 @@ package tp.pr4.control;
 
 import tp.pr4.UIType;
 
-/**
- * Created by Kerith on 27/02/2015.
- */
 public class ArgumentInterpreter {
 
     private String[] tokens;

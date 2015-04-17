@@ -28,8 +28,7 @@ public class BoardPanel extends JPanel implements GameObserver{
 	public BoardPanel(WindowController ctrl, Observable<GameObserver> game) {
 		this.ctrl = ctrl;
 		initGUI();
-		game.addObserver(this);	
-		
+		game.addObserver(this);
 	}
 	
 	private void initGUI() {
@@ -38,7 +37,7 @@ public class BoardPanel extends JPanel implements GameObserver{
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 1;
 		c.weighty = 1;
-		this.setPreferredSize(new Dimension(400, 200));
+		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
 	private JButton createButton (final int row, final int col, final Counter player, Counter colour) {
@@ -70,15 +69,15 @@ public class BoardPanel extends JPanel implements GameObserver{
 		
 		for (int i = 0; i < board.getWidth(); i++) {
 			for (int j = 0; j < board.getHeight(); j++) {
-				this.buttons[i][j] = createButton(i, j,  player, board.getPosition(i + 1, j + 1));
-				setButtonDisabled(i,j, board.getPosition(i, j));
+				//this.buttons[i][j] = createButton(i, j,  player, board.getPosition(i + 1, j + 1));
+				//setButtonDisabled(i,j, board.getPosition(i, j));
 				this.c.gridy = j;
-				this.c.gridx = i;
-				this.add(buttons[i][j], c);
+				this.add(createButton(i, j,  player, board.getPosition(i + 1, j + 1)), c);
 			}
-			this.revalidate();
-			this.active = true;
+            this.c.gridx = i;
 		}
+        this.revalidate();
+        this.active = true;
 	}
 	
 	public void setButtonDisabled (int i, int j, Counter colour) {
@@ -113,7 +112,7 @@ public class BoardPanel extends JPanel implements GameObserver{
 
 	@Override
 	public void onUndoNotPossible() {
-		// TODO Auto-generated method stub	
+		// TODO Auto-generated method stub
 	}
 
 	@Override

@@ -43,8 +43,9 @@ public class Game implements Observable<GameObserver> {
 		this.draw = false;
 		this.undoStack.clear();
 		this.rules = rules;
-		//TODO: Do we have to reset the observers?
-		//this.observers = new GameObserver[MAX_OBSERVERS];
+        for (GameObserver o : this.observers) {
+            o.reset(this.board, this.turn, false);
+        }
 	}
 
 	// Executes the move indicated by the column number provided as argument.

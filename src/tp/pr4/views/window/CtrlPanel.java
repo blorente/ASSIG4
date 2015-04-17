@@ -1,24 +1,12 @@
 package tp.pr4.views.window;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-
-
-
-
+import javax.swing.*;
 
 
 import tp.pr4.control.Instruction;
@@ -42,35 +30,22 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	private Instruction inst;
 	private int col, row;
 	private GameRules rules;
-	
-	public CtrlPanel (Observable<GameObserver> g, WindowController c) {
+
+    public CtrlPanel (Observable<GameObserver> g, WindowController c) {
 		this.controller = c;
 		inst = Instruction.PLAY_C4;
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		setLayout(new BorderLayout(5, 5));
 		g.addObserver(this);
 	}
 
 	private void initGUI(final Counter player) {
-		JPanel firstPanel = new JPanel(new BorderLayout());
-		JButton undo = new JButton("Undo");
-		undo.setIcon(new ImageIcon("src/tp/pr4/icons/undo.png"));
-		undo.setPreferredSize(new Dimension (30, 30));
-		undo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-				controller.undo();
-				}
-				catch (Exception ex) {
-					onUndoNotPossible();
-				}
-			}		
-		});
-		
-		JButton reset = new JButton("Reset");
-		undo.setIcon(new ImageIcon("src/tp/pr4/icons/reset.png"));
-		undo.setPreferredSize(new Dimension (30, 30));
-		undo.addActionListener(new ActionListener() {
+		JPanel firstPanel = new JPanel();
+        firstPanel.setLayout(new BoxLayout(firstPanel, BoxLayout.Y_AXIS));
+
+        //Crete Reset button
+		JButton reset = new JButton("");
+		reset.setIcon(new ImageIcon("src/tp/pr4/icons/reset.png"));
+		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {				
 				switch(inst) {
@@ -90,26 +65,49 @@ public class CtrlPanel extends JPanel implements GameObserver {
 				controller.reset(rules);
 			}		
 		});
-		
-		JButton random = new JButton("Random Move");
-		undo.setIcon(new ImageIcon("src/tp/pr4/icons/random.png"));
-		undo.setPreferredSize(new Dimension (30, 30));
-		undo.addActionListener(new ActionListener() {
+        //Create Undo button
+        JButton undo = new JButton("");
+        undo.setIcon(new ImageIcon("src/tp/pr4/icons/undo.png"));
+        undo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    controller.undo();
+                }
+                catch (Exception ex) {
+                    onUndoNotPossible();
+                }
+            }
+        });
+		//Create random move Button
+		JButton random = new JButton("");
+		random.setIcon(new ImageIcon("src/tp/pr4/icons/random.png"));
+		random.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				controller.randomMove(player);
 			}		
 		});
-		
-		JTextArea turn = new JTextArea(5, 5);
-		turn.setEnabled(false);
-		turn.setText(player + " plays");
-		
-		firstPanel.add(turn, BorderLayout.PAGE_START);
-		firstPanel.add(undo, BorderLayout.LINE_START);
-		firstPanel.add(reset, BorderLayout.CENTER);
-		firstPanel.add(random, BorderLayout.LINE_END);
-		
+
+        //Create horizontal subpanel for Undo, Reset and Random buttons
+        JPanel cntrlButtonsPanel = new JPanel();
+        cntrlButtonsPanel.setLayout(new BoxLayout(cntrlButtonsPanel, BoxLayout.X_AXIS));
+        cntrlButtonsPanel.setSize(this.getWidth(), 200);
+        cntrlButtonsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        cntrlButtonsPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+
+        cntrlButtonsPanel.add(reset);
+        cntrlButtonsPanel.add(undo);
+        cntrlButtonsPanel.add(random);
+
+        //Create The current player text
+        JTextField turn = new JTextField();
+        turn.setEnabled(false);
+        turn.setText(player + " plays");
+        //Mount the text panel
+        firstPanel.add(turn);
+
+        //Create panel to change game
 		JPanel secondPanel = new JPanel();
 		secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.Y_AXIS));
 		String[] instructions = {inst.toString(Instruction.PLAY_C4), inst.toString(Instruction.PLAY_CO), inst.toString(Instruction.PLAY_G)};
@@ -144,9 +142,9 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		});
 		
 		JButton change = new JButton("Change");
-		undo.setIcon(new ImageIcon("src/tp/pr4/icons/change.png"));
-		undo.setPreferredSize(new Dimension (30, 30));
-		undo.addActionListener(new ActionListener() {
+		change.setIcon(new ImageIcon("src/tp/pr4/icons/change.png"));
+        change.setPreferredSize(new Dimension (30, 30));
+        change.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (inst == Instruction.PLAY_G) {
@@ -171,9 +169,10 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		secondPanel.add(width);
 		secondPanel.add(height);
 		secondPanel.add(change);
-		
-		this.add(firstPanel);
-		this.add(secondPanel);
+		//Add all of the panles to the Central panel
+		this.add(firstPanel, BorderLayout.PAGE_START);
+        this.add(cntrlButtonsPanel, BorderLayout.CENTER);
+        this.add(secondPanel, BorderLayout.PAGE_END);
 		this.revalidate();
 	}
 	
@@ -202,7 +201,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player,
 			Counter nextPlayer) {
-		initGUI(player);	
+        initGUI(player);
 	}
 
 	@Override
@@ -214,7 +213,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	@Override
 	public void onUndo(ReadOnlyBoard board, Counter nextPlayer,
 			boolean undoPossible) {
-		initGUI(nextPlayer);
+        initGUI(nextPlayer);
 	}
 
 	@Override
@@ -226,7 +225,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 
 	@Override
 	public void onAttachToObserved(ReadOnlyBoard board, Counter turn) {
-		initGUI(turn);
+        initGUI(turn);
 	}
 	
 	//----------

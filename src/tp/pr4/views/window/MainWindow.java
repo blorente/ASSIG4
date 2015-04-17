@@ -34,6 +34,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	public MainWindow(Observable<GameObserver> g, WindowController c) {	
 		super("Assignment 4");
+        this.setSize(700, 500);
 		this.controller = c;
 		this.game = g;
 		initGUI();
@@ -48,13 +49,14 @@ public class MainWindow extends JFrame implements GameObserver {
 		this.ctrlPanel = new CtrlPanel(game, controller); // Nested Class
 		this.quitPanel = createQuitPanel();
 		
-		mainPanel.add(this.brdPanel, BorderLayout.LINE_START);
+		mainPanel.add(this.brdPanel, BorderLayout.CENTER);
 		mainPanel.add(this.ctrlPanel, BorderLayout.LINE_END);
 		mainPanel.add(this.quitPanel, BorderLayout.PAGE_END);
 		
 		
-		//mainPanel.setVisible(true);
+		mainPanel.setVisible(true);
 		this.setVisible(true);
+        this.repaint();
 	}
 	
 	private JPanel createQuitPanel() {

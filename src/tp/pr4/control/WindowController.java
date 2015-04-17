@@ -82,8 +82,7 @@ public class WindowController extends Controller {
 	}
 	@Override
 	public void run() {
-		System.out.print("Is here");
-		this.window = new MainWindow(game, this);	
+		this.window = new MainWindow(game, this);
 		
 	}
 

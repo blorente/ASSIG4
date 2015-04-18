@@ -46,7 +46,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		this.setContentPane(mainPanel);
 		
 		this.brdPanel = new BoardPanel(this.controller, this.game);//Nested Class
-		this.ctrlPanel = new CtrlPanel(game, controller); // Nested Class
+		this.ctrlPanel = new CtrlPanel(game, controller, controller.getRules()); // Nested Class
 		this.quitPanel = createQuitPanel();
 		
 		mainPanel.add(this.brdPanel, BorderLayout.CENTER);

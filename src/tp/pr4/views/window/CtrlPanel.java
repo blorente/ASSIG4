@@ -31,8 +31,9 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	private int col, row;
 	private GameRules rules;
 
-    public CtrlPanel (Observable<GameObserver> g, WindowController c) {
+    public CtrlPanel (Observable<GameObserver> g, WindowController c, GameRules rules) {
 		this.controller = c;
+        this.rules = rules;
 		inst = Instruction.PLAY_C4;
 		setLayout(new BorderLayout(5, 5));
 		g.addObserver(this);

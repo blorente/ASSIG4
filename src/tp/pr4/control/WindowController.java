@@ -86,4 +86,7 @@ public class WindowController extends Controller {
 		
 	}
 
+    public GameRules getRules() {
+        return rules;
+    }
 }

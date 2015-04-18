@@ -148,7 +148,6 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		});
 		
 		JButton change = new JButton("Change");
-		change.setIcon(new ImageIcon("src/tp/pr4/icons/change.png"));
         change.setPreferredSize(new Dimension (30, 30));
         change.addActionListener(new ActionListener() {
 			@Override
@@ -193,18 +192,32 @@ public class CtrlPanel extends JPanel implements GameObserver {
 
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
-		this.setEnabled(false);
-		int n = JOptionPane.showOptionDialog(new JFrame(), 
-				"Do you want to play again?", "Game Over",
-				JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE,
-				null, null, null);
-		if (n == 0) {
-			this.controller.reset(this.rules);
-		}
-		else{
-			System.exit(0);
-		}
+        if (winner != Counter.EMPTY) {
+            int n = JOptionPane.showOptionDialog(new JFrame(),
+                    "Do you want to play again?", winner.toString() + " wins",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, null, null);
+            if (n == 0) {
+                this.controller.reset(this.rules);
+            }
+            else{
+                System.exit(0);
+            }
+        }
+        else {
+            int n = JOptionPane.showOptionDialog(new JFrame(),
+                    "Do you want to play again?", "It's a draw",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, null, null);
+            if (n == 0) {
+                this.controller.reset(this.rules);
+            }
+            else{
+                System.exit(0);
+            }
+        }
 	}	
 	
 

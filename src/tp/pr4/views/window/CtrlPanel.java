@@ -210,7 +210,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player,
 			Counter nextPlayer) {
-        initGUI(player);
+        initGUI(nextPlayer);
 	}
 
 	@Override

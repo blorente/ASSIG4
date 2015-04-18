@@ -64,6 +64,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		JPanel quitPanel = new JPanel();
 		JButton quit = new JButton("");
 		quit.setIcon(new ImageIcon("src/tp/pr4/icons/exit.png"));
+		quit.setToolTipText("Exit");
 		quit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

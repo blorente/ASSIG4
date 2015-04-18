@@ -46,6 +46,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
         //Crete Reset button
 		JButton reset = new JButton("");
 		reset.setIcon(new ImageIcon("src/tp/pr4/icons/reset.png"));
+		reset.setToolTipText("Reset");
 		reset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {				
@@ -69,6 +70,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
         //Create Undo button
         JButton undo = new JButton("");
         undo.setIcon(new ImageIcon("src/tp/pr4/icons/undo.png"));
+        undo.setToolTipText("Undo the move");
         undo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -83,6 +85,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		//Create random move Button
 		JButton random = new JButton("");
 		random.setIcon(new ImageIcon("src/tp/pr4/icons/random.png"));
+		random.setToolTipText("Random Move");
 		random.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

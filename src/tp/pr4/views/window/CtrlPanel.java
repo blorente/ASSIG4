@@ -131,6 +131,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		width.addFocusListener(new BoardMeasureHintFocusListener(width.getText(), width));
 		
 		final JComboBox<String> list = new JComboBox<String>(instructions);
+		list.setPreferredSize(new Dimension(30, 30));
 		list.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -202,6 +203,20 @@ public class CtrlPanel extends JPanel implements GameObserver {
                     JOptionPane.QUESTION_MESSAGE,
                     null, null, null);
             if (n == 0) {
+            	switch(this.inst) {
+				case PLAY_C4:
+					this.rules = new Connect4Rules();
+					break;
+				case PLAY_CO:
+					this.rules = new ComplicaRules();
+					break;
+				case PLAY_G:
+					this.rules = new GravityRules(col, row);
+					break;
+				default:
+					this.rules = new Connect4Rules();
+					break;
+				}
                 this.controller.reset(this.rules);
             }
             else{
@@ -215,6 +230,20 @@ public class CtrlPanel extends JPanel implements GameObserver {
                     JOptionPane.QUESTION_MESSAGE,
                     null, null, null);
             if (n == 0) {
+            	switch(this.inst) {
+				case PLAY_C4:
+					this.rules = new Connect4Rules();
+					break;
+				case PLAY_CO:
+					this.rules = new ComplicaRules();
+					break;
+				case PLAY_G:
+					this.rules = new GravityRules(col, row);
+					break;
+				default:
+					this.rules = new Connect4Rules();
+					break;
+				}
                 this.controller.reset(this.rules);
             }
             else{

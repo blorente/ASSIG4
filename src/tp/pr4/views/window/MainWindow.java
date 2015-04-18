@@ -66,17 +66,16 @@ public class MainWindow extends JFrame implements GameObserver {
 		quit.setIcon(new ImageIcon("src/tp/pr4/icons/exit.png"));
 		quit.setToolTipText("Exit");
 		quit.addActionListener(new ActionListener() {
+			String[] options = {"Yes", "No"};
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				int n = JOptionPane.showOptionDialog(new JFrame(), 
-						"Are sure you want to quit?", "Quit",
-						JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE,
-						null, null, null);
-				if (n== 0) {
+			public void actionPerformed(ActionEvent arg0) {
+				int n = JOptionPane.showOptionDialog(new JFrame(),"Are sure you want to quit?",
+													"Quit", JOptionPane.DEFAULT_OPTION, 
+													JOptionPane.INFORMATION_MESSAGE,null,options,options[0]);
+				if(n == 0) {
 					System.exit(0);
 				}
-			}		
+			}
 		});
 		quitPanel.add(quit);
 		return quitPanel;

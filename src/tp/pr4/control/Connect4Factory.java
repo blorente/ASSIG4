@@ -14,7 +14,7 @@ public class Connect4Factory implements GameTypeFactory {
 
 	public Move createMove(int col, int row, Counter colour) {
 		Move move = new Connect4Move(col, colour);
-		return move;
+        return move;
 	}
 
 	public Player createHumanPlayerAtConsole(Scanner in) {

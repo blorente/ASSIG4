@@ -112,6 +112,9 @@ public class Main {
             }        
             //Run the game
             controller.run();
+
+            controller = new ConsoleController(factory, game);
+            controller.run();
         }
 	}
 

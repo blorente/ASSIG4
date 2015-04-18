@@ -85,7 +85,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		random.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				controller.randomMove(player);
+				controller.randomMove();
 			}		
 		});
 
@@ -170,7 +170,6 @@ public class CtrlPanel extends JPanel implements GameObserver {
 				}
 			}		
 		});
-		
 
 		secondPanel.add(list);
 		secondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -199,7 +198,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE,
 				null, null, null);
-		if (n== 0) {
+		if (n == 0) {
 			this.controller.reset(this.rules);
 		}
 		else{

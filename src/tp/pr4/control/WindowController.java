@@ -73,8 +73,8 @@ public class WindowController extends Controller {
 		//TODO implementa
 	}
 	
-	public void randomMove(Counter player) {
-		Move move = random.getMove(this.game.getBoard(), player);
+	public void randomMove() {
+		Move move = random.getMove(this.game.getBoard(), this.game.getTurn());
 		try {
 			this.game.executeMove(move);
 		} catch (InvalidMove e) {

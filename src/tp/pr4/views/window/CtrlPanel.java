@@ -40,6 +40,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
 	}
 
 	private void initGUI(final Counter player) {
+		this.removeAll();
 		JPanel firstPanel = new JPanel();
         firstPanel.setLayout(new BoxLayout(firstPanel, BoxLayout.Y_AXIS));
 
@@ -116,18 +117,20 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.Y_AXIS));
 		String[] instructions = {inst.toString(Instruction.PLAY_C4), inst.toString(Instruction.PLAY_CO), inst.toString(Instruction.PLAY_G)};
 		
-		final JTextArea height = new JTextArea(1, 2);
+		final JTextArea height = new JTextArea(1, 1);
 		height.setText("Height");
 		height.setEditable(true);
 		height.setEnabled(false);
 		height.setVisible(false);
+		height.setPreferredSize(new Dimension(0, 10));
 		height.addFocusListener(new BoardMeasureHintFocusListener(height.getText(), height));
 		
-		final JTextArea width = new JTextArea(1, 2);
+		final JTextArea width = new JTextArea(1, 1);
 		width.setText("Width");
 		width.setEditable(true);
 		width.setEnabled(false);
 		width.setVisible(false);
+		height.setPreferredSize(new Dimension(0, 10));
 		width.addFocusListener(new BoardMeasureHintFocusListener(width.getText(), width));
 		
 		final JComboBox<String> list = new JComboBox<String>(instructions);

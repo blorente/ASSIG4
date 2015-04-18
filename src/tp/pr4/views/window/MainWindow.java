@@ -83,7 +83,7 @@ public class MainWindow extends JFrame implements GameObserver {
 	
 	@Override
 	public void reset(ReadOnlyBoard board, Counter player, Boolean undoPossible) {
-
+		
 	}
 
 	@Override

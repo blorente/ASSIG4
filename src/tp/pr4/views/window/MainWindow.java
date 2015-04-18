@@ -57,6 +57,7 @@ public class MainWindow extends JFrame implements GameObserver {
 		mainPanel.setVisible(true);
 		this.setVisible(true);
         this.repaint();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	private JPanel createQuitPanel() {

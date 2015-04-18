@@ -112,14 +112,14 @@ public class CtrlPanel extends JPanel implements GameObserver {
 		secondPanel.setLayout(new BoxLayout(secondPanel, BoxLayout.Y_AXIS));
 		String[] instructions = {inst.toString(Instruction.PLAY_C4), inst.toString(Instruction.PLAY_CO), inst.toString(Instruction.PLAY_G)};
 		
-		final JTextArea height = new JTextArea(5, 5);
+		final JTextArea height = new JTextArea(1, 2);
 		height.setText("Height");
 		height.setEditable(true);
 		height.setEnabled(false);
 		height.setVisible(false);
 		height.addFocusListener(new BoardMeasureHintFocusListener(height.getText(), height));
 		
-		final JTextArea width = new JTextArea(5, 5);
+		final JTextArea width = new JTextArea(1, 2);
 		width.setText("Width");
 		width.setEditable(true);
 		width.setEnabled(false);
@@ -131,12 +131,17 @@ public class CtrlPanel extends JPanel implements GameObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String instruction = (String)list.getSelectedItem();
-				inst = inst.StringToInstruction(instruction);
-				if (inst == Instruction.PLAY_G){
+				if (inst.StringToInstruction(instruction) == Instruction.PLAY_G){
 					width.setVisible(true);
 					width.setEnabled(true);
 					height.setVisible(true);
 					height.setEnabled(true);
+				}
+				else {
+					width.setVisible(false);
+					width.setEnabled(false);
+					height.setVisible(false);
+					height.setEnabled(false);
 				}
 			}
 		});
@@ -147,6 +152,7 @@ public class CtrlPanel extends JPanel implements GameObserver {
         change.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				inst = inst.StringToInstruction((String)list.getSelectedItem());
 				if (inst == Instruction.PLAY_G) {
 					try {
 						col = Integer.parseInt(width.getText());
@@ -165,9 +171,13 @@ public class CtrlPanel extends JPanel implements GameObserver {
 			}		
 		});
 		
+
 		secondPanel.add(list);
+		secondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		secondPanel.add(width);
+		secondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		secondPanel.add(height);
+		secondPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 		secondPanel.add(change);
 		//Add all of the panles to the Central panel
 		this.add(firstPanel, BorderLayout.PAGE_START);

@@ -40,8 +40,9 @@ public class BoardPanel extends JPanel implements GameObserver{
 		this.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
 	}
 
-	private JButton createButton (final int row, final int col, final Counter player, Counter colour) {
+	private JButton createButton (final int col, final int row, final Counter player, Counter colour) {
 		JButton button = new JButton();
+		button.setPreferredSize(new Dimension(40, 40));
 		switch(colour) {
 		case BLACK:
 			button.setIcon(new ImageIcon("src/tp/pr4/icons/black.png"));
@@ -50,16 +51,16 @@ public class BoardPanel extends JPanel implements GameObserver{
 			button.setIcon(new ImageIcon("src/tp/pr4/icons/white.png"));
 			break;
 		default:
-			break;		
+			button.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (active) {
+						ctrl.makeMove(col + 1, row + 1, player);
+					}	
+				}
+			});
+			break;
 		}
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (active) {
-					ctrl.makeMove(row, col, player);
-				}	
-			}	
-		});
 		return button;		
 	}
 
@@ -68,23 +69,18 @@ public class BoardPanel extends JPanel implements GameObserver{
 		this.removeAll();
 		
 		for (int i = 0; i < board.getWidth(); i++) {
+			this.c.gridx = i;
 			for (int j = 0; j < board.getHeight(); j++) {
 				//this.buttons[i][j] = createButton(i, j,  player, board.getPosition(i + 1, j + 1));
 				//setButtonDisabled(i,j, board.getPosition(i, j));
 				this.c.gridy = j;
 				this.add(createButton(i, j,  player, board.getPosition(i + 1, j + 1)), c);
 			}
-            this.c.gridx = i;
 		}
         this.revalidate();
         this.active = true;
 	}
 	
-	public void setButtonDisabled (int i, int j, Counter colour) {
-		if (colour != Counter.EMPTY) {
-			this.buttons[i][j].setEnabled(false);
-		}
-	}
 	
 	@Override
 	public void onGameOver(ReadOnlyBoard board, Counter winner) {
@@ -95,7 +91,7 @@ public class BoardPanel extends JPanel implements GameObserver{
 	@Override
 	public void moveExecFinished(ReadOnlyBoard board, Counter player,
 			Counter nextPlayer) {
-		this.UpdateView(nextPlayer, board);	
+		this.UpdateView(nextPlayer, board);
 	}
 
 	@Override

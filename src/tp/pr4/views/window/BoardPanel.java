@@ -11,8 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 import tp.pr4.control.WindowController;
+import tp.pr4.logic.ComplicaRules;
 import tp.pr4.logic.Counter;
 import tp.pr4.logic.GameObserver;
+import tp.pr4.logic.GameRules;
 import tp.pr4.logic.Observable;
 import tp.pr4.logic.ReadOnlyBoard;
 
@@ -51,6 +53,10 @@ public class BoardPanel extends JPanel implements GameObserver{
 			button.setIcon(new ImageIcon("src/tp/pr4/icons/white.png"));
 			break;
 		default:
+			
+			break;
+		}
+		if (this.ctrl.getRules().getClass() == ComplicaRules.class || colour == Counter.EMPTY) {
 			button.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -59,7 +65,6 @@ public class BoardPanel extends JPanel implements GameObserver{
 					}	
 				}
 			});
-			break;
 		}
 		return button;		
 	}
